@@ -1,0 +1,35 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    apply from: "dependencies.gradle"
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath deps.build.androidPlugin
+        classpath deps.build.kotlinPlugin
+        classpath deps.build.okbuck
+    }
+}
+
+apply plugin: 'com.uber.okbuck'
+
+okbuck {
+    buildToolVersion = config.build.buildTools
+    target = "android-${config.build.compileSdk}"
+    lint {
+        disabled = true
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

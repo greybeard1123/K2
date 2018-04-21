@@ -1,0 +1,101 @@
+def getGitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+/**
+ * Use the number of seconds/10 since Dec 12 2017 as the versionCode.
+ * This lets us upload a new build at most every 10 seconds for the
+ * next 680 years.
+ */
+def verCode = (int) (((new Date().getTime() / 1000) - 1513056598) / 10)
+
+def release = [
+        proguard: true
+]
+
+def debug = [
+        proguard: false
+]
+
+def buildConfig = [
+        versionCode: verCode,
+        minSdk     : 23,
+        compileSdk : 27,
+        targetSdk  : 23,
+        versionName: "3.8.3-${getGitHash}", // release.major.minor, Release = Lynx
+        buildTools : '27.0.3',
+        support    : '27.1.0',
+        "release"  : release,
+        "debug"    : debug,
+]
+
+def pluginVersions = [
+        androidTools: '3.1.1',
+]
+
+def versions = [
+        kotlin  : '1.2.30',
+        okbuck  : '0.37.1',
+        "plugin": pluginVersions,
+        arrow   : '0.7.1',
+
+        //Test
+        junit   : '4.12',
+]
+
+def build = [
+        androidPlugin: "com.android.tools.build:gradle:${versions.plugin.androidTools}",
+        kotlinPlugin : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+        okbuck       : "com.uber:okbuck:${versions.okbuck}",
+]
+
+def support = [
+        annotations : "com.android.support:support-annotations:${buildConfig.support}",
+        appCompatv7 : "com.android.support:appcompat-v7:${buildConfig.support}",
+        v4          : "com.android.support:support-v4:${buildConfig.support}",
+        v13         : "com.android.support:support-v13:${buildConfig.support}",
+        design      : "com.android.support:design:${buildConfig.support}",
+        recyclerView: "com.android.support:recyclerview-v7:${buildConfig.support}",
+]
+
+def kotlin = [
+        stdlib    : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+        stdlibJre7: "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
+        reflect   : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
+]
+
+def arrow = [
+        core               : "io.arrow-kt:arrow-core:${versions.arrow}",
+        syntax             : "io.arrow-kt:arrow-syntax:${versions.arrow}",
+        typeclasses        : "io.arrow-kt:arrow-typeclasses:${versions.arrow}",
+        data               : "io.arrow-kt:arrow-data:${versions.arrow}",
+        instancesCore      : "io.arrow-kt:arrow-instances-core:${versions.arrow}",
+        instancesData      : "io.arrow-kt:arrow-instances-data:${versions.arrow}",
+        annotationProcessor: "io.arrow-kt:arrow-annotations-processor:${versions.arrow}",
+]
+
+def external = [
+        "kotlin": kotlin,
+        "arrow" : arrow,
+]
+
+def test = [
+        junit             : "junit:junit:${versions.junit}",
+        androidJUnitRunner: "android.support.test.runner.AndroidJUnitRunner",
+]
+
+ext.config = [
+        "build": buildConfig,
+]
+
+ext.deps = [
+        "build"   : build,
+        "support" : support,
+        "external": external,
+        "test"    : test,
+]
