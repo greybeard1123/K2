@@ -1,1 +1,1 @@
-include ':ride', ':datastore', ':datamodels', ':home'
+include ':ride', ':datastore', ':lib_datamodels', ':home'
