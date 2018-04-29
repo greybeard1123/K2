@@ -8,10 +8,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/aidl" />
+            <option value="$PROJECT_DIR$/commons" />
+            <option value="$PROJECT_DIR$/datamodels" />
             <option value="$PROJECT_DIR$/datastore" />
             <option value="$PROJECT_DIR$/home" />
-            <option value="$PROJECT_DIR$/lib_datamodels" />
             <option value="$PROJECT_DIR$/ride" />
+            <option value="$PROJECT_DIR$/serviceclients" />
+            <option value="$PROJECT_DIR$/uicomponents" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

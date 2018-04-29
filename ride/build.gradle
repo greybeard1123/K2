@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion config.build.compileSdk
@@ -37,6 +38,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation deps.external.kotlin.stdlibJre7
     implementation deps.support.appCompatv7
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation deps.test.junit
 }

@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion config.build.compileSdk
+    defaultConfig {
+        minSdkVersion config.build.minSdk
+        targetSdkVersion config.build.targetSdk
+        versionCode config.build.versionCode
+        versionName config.build.versionName
+        testInstrumentationRunner deps.test.androidJUnitRunner
+    }
+    buildTypes {
+        release {
+            useProguard config.build.release.proguard
+            proguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            initWith(release)
+            useProguard config.build.debug.proguard
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.external.kotlin.stdlib
+    implementation deps.external.kotlin.stdlibJre7
+
+    //Support
+    implementation deps.support.appCompatv7
+    implementation deps.support.constraintLayout
+
+    testImplementation deps.test.junit
+}

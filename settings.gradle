@@ -1,1 +1,2 @@
-include ':ride', ':datastore', ':lib_datamodels', ':home'
+include ':commons', ':datamodels', ':aidl', ':serviceclients', ':uicomponents', ':ride', ':datastore', ':home'
+

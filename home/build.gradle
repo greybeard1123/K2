@@ -1,36 +1,65 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 27
-
-
-
+    compileSdkVersion config.build.compileSdk
     defaultConfig {
         applicationId "io.hammerhead.home"
-        minSdkVersion 23
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        minSdkVersion config.build.minSdk
+        targetSdkVersion config.build.targetSdk
+        versionCode config.build.versionCode
+        versionName config.build.versionName
+        testInstrumentationRunner deps.test.androidJUnitRunner
     }
-
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            keyAlias "karoo-production"
+            keyPassword System.getenv("KAROO_PRODUCTION_KEY")
+            storeFile project.rootProject.file("config/karoo-production.keystore")
+            storePassword System.getenv("KAROO_PRODUCTION_KEYSTORE")
         }
     }
-
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            useProguard config.build.release.proguard
+            proguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            initWith(release)
+            useProguard config.build.debug.proguard
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation project(':aidl')
+    implementation project(':commons')
+    implementation project(':uicomponents')
+    implementation project(':serviceclients')
+
+    implementation deps.external.kotlin.stdlib
+    implementation deps.external.kotlin.stdlibJre7
+
+    //Rx Dependencies
+    implementation deps.external.rx.java
+    implementation deps.external.rx.kotlin
+    implementation deps.external.rx.android
+
+    //Logger
+    implementation deps.external.logger
+
+    //Support
+    implementation deps.support.appCompatv7
+    implementation deps.support.constraintLayout
+
+    //AutoDispose
+    implementation deps.external.autoDispose.android
+    implementation deps.external.autoDispose.kotlin
+    implementation deps.external.autoDispose.archComponents
+
+    testImplementation deps.test.junit
 }
