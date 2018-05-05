@@ -55,7 +55,7 @@ def versions = [
         arch            : '1.1.1',
         androidKtx      : '0.3',
         couchbase       : '2.0.0',
-        logger          : '2.2.0',
+        timber          : '4.7.0',
         autoDispose     : '0.7.0',
 
         //Test
@@ -121,8 +121,8 @@ def retrofit = [
 ]
 
 def autoDispose = [
-        kotlin: "com.uber.autodispose:autodispose-kotlin:${versions.autoDispose}",
-        android : "com.uber.autodispose:autodispose-android-kotlin:${versions.autoDispose}",
+        kotlin        : "com.uber.autodispose:autodispose-kotlin:${versions.autoDispose}",
+        android       : "com.uber.autodispose:autodispose-android-kotlin:${versions.autoDispose}",
         archComponents: "com.uber.autodispose:autodispose-android-archcomponents-kotlin:${versions.autoDispose}",
 ]
 
@@ -133,7 +133,7 @@ def external = [
         "retrofit"   : retrofit,
         "rx"         : rx,
         "autoDispose": autoDispose,
-        logger       : "com.orhanobut:logger:${versions.logger}",
+        timber       : "com.jakewharton.timber:timber:${versions.timber}",
         couchbase    : "com.couchbase.lite:couchbase-lite-android:${versions.couchbase}",
         androidKtx   : "androidx.core:core-ktx:${versions.androidKtx}",
 ]

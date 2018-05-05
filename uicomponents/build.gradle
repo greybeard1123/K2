@@ -33,5 +33,15 @@ dependencies {
     implementation deps.support.appCompatv7
     implementation deps.support.constraintLayout
 
+    //Rx Dependencies
+    implementation deps.external.rx.java
+    implementation deps.external.rx.kotlin
+    implementation deps.external.rx.android
+
+    //AutoDispose
+    implementation deps.external.autoDispose.android
+    implementation deps.external.autoDispose.kotlin
+    implementation deps.external.autoDispose.archComponents
+
     testImplementation deps.test.junit
 }

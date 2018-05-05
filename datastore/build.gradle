@@ -35,9 +35,25 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':aidl')
+    implementation project(':commons')
+    implementation project(':uicomponents')
+    implementation project(':serviceclients')
+
+    implementation deps.external.kotlin.stdlib
     implementation deps.external.kotlin.stdlibJre7
+
+    //Rx Dependencies
+    implementation deps.external.rx.java
+    implementation deps.external.rx.kotlin
+    implementation deps.external.rx.android
+
+    //Logging
+    implementation deps.external.timber
+
+    //Support
     implementation deps.support.appCompatv7
+    implementation deps.support.constraintLayout
+
     testImplementation deps.test.junit
 }

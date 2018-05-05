@@ -49,8 +49,8 @@ dependencies {
     implementation deps.external.rx.kotlin
     implementation deps.external.rx.android
 
-    //Logger
-    implementation deps.external.logger
+    //Logging
+    implementation deps.external.timber
 
     //Support
     implementation deps.support.appCompatv7

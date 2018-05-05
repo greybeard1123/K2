@@ -10,6 +10,10 @@ import android.os.Bundle
 open class BaseActivity : Activity(), LifecycleOwner {
     private lateinit var lifecycleRegistry: LifecycleRegistry
 
+    init {
+        setupRegistry()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleRegistry = LifecycleRegistry(this)
@@ -33,5 +37,10 @@ open class BaseActivity : Activity(), LifecycleOwner {
 
     override fun getLifecycle(): Lifecycle {
         return lifecycleRegistry
+    }
+
+    private fun setupRegistry() {
+        lifecycleRegistry = LifecycleRegistry(this)
+        lifecycleRegistry.markState(Lifecycle.State.INITIALIZED)
     }
 }

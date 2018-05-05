@@ -1,15 +1,17 @@
 package io.hammerhead.datastore
 
 import io.hammerhead.aidl.TestAIDL
+import io.hammerhead.commons.logging.Logger.dataStoreLog
+import timber.log.Timber.d
 
-object TestServiceApi : TestAIDL.Stub() {
-    override fun sendMessage(message: String?) {
-        println("******* sendMessage in service: $message")
+class TestServiceApi : TestAIDL.Stub() {
+    override fun sendMessage(message: String) {
+        d(dataStoreLog("Service got message $message"))
     }
 
     override fun getMessage(): String {
-        val message = "HAHAAHAH"
-        println("***** Got message in service: $message")
+        val message = "Test message from service"
+        d(dataStoreLog("Service sending message $message"))
         return message
     }
 }

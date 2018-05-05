@@ -1,7 +1,7 @@
 package io.hammerhead.commons.serviceConnection
 
-import io.reactivex.Single
+import io.reactivex.Observable
 
 interface BaseServiceClientFactoryI<T> {
-    fun serviceConnection(): Single<T>
+    fun serviceConnection(): Observable<T>
 }
